@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div id="cartItem1" class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="subtractQty" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="qtyAmount" type="text" class="form-control text-center" value="1" min="1">
+                           <button id="addQty" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="currentAmount">1219</span></h5>
+                        <img id="removePro1" src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div id="cartItem2" class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="subtractQtyPro2" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="qtyAmountPro2" type="text" class="form-control text-center" value="1" min="1">
+                           <button id="addQtyPro2" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="currentAmountPro2">59</span></h5>
+                        <img id="removePro2" src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="currentSubtotal">1278</span></h5>
+                        <h5>$ <span id="currentTax">00</span></h5>
+                        <h5>$ <span id="currentTotal">1278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <script>
+      //product 1 : add quantity button event handler
+      const addQtyBtn = document.getElementById("addQty");
+      addQtyBtn.addEventListener("click", function(){
+         
+         const totalQty = getTotalQty("qtyAmount", 1);
+
+         const totalAmount = getTotalAmount("currentAmount", totalQty, 1219);
+
+         const currentSubtotal = document.getElementById("currentSubtotal").innerText;
+         const currentSubtotalNumber = parseFloat(currentSubtotal);
+         const totalSubtotalAmount = currentSubtotalNumber + 1219;
+         if(totalSubtotalAmount >= 1278){
+            document.getElementById("currentSubtotal").innerText = totalSubtotalAmount;
+            document.getElementById("currentTotal").innerText = totalSubtotalAmount;
+         }
+         //const totalSubtotalAmount = getSubtotalAmount("currentSubtotal", 1219);  
+      });
+
+      //product 1 : subtract quantity button event handler
+      const subtractQtyBtn = document.getElementById("subtractQty");
+      subtractQty.addEventListener("click", function(){
+      
+         const totalQty = getTotalQty("qtyAmount", -1);
+
+         const totalAmount = getTotalAmount("currentAmount", totalQty, 1219);
+
+         const currentSubtotal = document.getElementById("currentSubtotal").innerText;
+         const currentSubtotalNumber = parseFloat(currentSubtotal);
+         const totalSubtotalAmount = (currentSubtotalNumber - 1219);
+         if(totalSubtotalAmount >= 1278){
+            document.getElementById("currentSubtotal").innerText = totalSubtotalAmount;
+            document.getElementById("currentTotal").innerText = totalSubtotalAmount;
+         }
+         //const totalSubtotalAmount = getSubtotalAmount("currentSubtotal", -1219);
+
+      }); 
+
+      const removePro1Btn = document.getElementById("removePro1");
+         removePro1Btn.addEventListener("click", function(){
+            const cartItem = document.getElementById("cartItem1");
+            cartItem.style.display = "none";
+         });
+         //removeFromCart("cartItem1", qtyAmount, currentAmount, currentSubtotal, totalSubtotalAmount, totalAmount, 1219);
+
+         document.getElementById("qtyAmount").value = 1;
+
+      //product 2 : add quantity button event handler
+      const addQtyPro2Btn = document.getElementById("addQtyPro2");
+      addQtyPro2Btn.addEventListener("click", function(){
+         
+         const totalQtyPro2 = getTotalQty("qtyAmountPro2", 1);
+
+         const totalAmountPro2 = getTotalAmount("currentAmountPro2", totalQtyPro2, 59);
+
+         const currentSubtotal = document.getElementById("currentSubtotal").innerText;
+         const currentSubtotalNumber = parseFloat(currentSubtotal);
+         const totalSubtotalAmount = currentSubtotalNumber + 59;
+         if(totalSubtotalAmount >= 1278){
+            document.getElementById("currentSubtotal").innerText = totalSubtotalAmount;
+            document.getElementById("currentTotal").innerText = totalSubtotalAmount;
+
+         }
+         //const totalSubtotalAmount = getSubtotalAmount("currentSubtotal", 59);   
+      });
+
+      //product 2 : subtract quantity button event handler
+      const subtractQtyPro2Btn = document.getElementById("subtractQtyPro2");
+      subtractQtyPro2Btn.addEventListener("click", function(){
+
+         const totalQtyPro2 = getTotalQty("qtyAmountPro2", -1);
+
+         const totalAmountPro2 = getTotalAmount("currentAmountPro2", totalQtyPro2, 59);
+
+         const currentSubtotal = document.getElementById("currentSubtotal").innerText;
+         const currentSubtotalNumber = parseFloat(currentSubtotal);
+         const totalSubtotalAmount = (currentSubtotalNumber - 59);
+         if(totalSubtotalAmount >= 1278){
+            document.getElementById("currentSubtotal").innerText = totalSubtotalAmount;
+            document.getElementById("currentTotal").innerText = totalSubtotalAmount;
+         }
+          //const totalSubtotalAmount = getSubtotalAmount("currentSubtotal", -59);   
+
+      });
+
+      const removePro2Btn = document.getElementById("removePro2");
+         removePro2Btn.addEventListener("click", function(){
+            const cartItem = document.getElementById("cartItem2");
+            cartItem.style.display = "none";
+      });
+
+      document.getElementById("qtyAmountPro2").value = 1;
+
+      //-------------------Functions-------------------------------------
+      function getTotalQty(id, increment){
+         const currentQty = document.getElementById(id).value;
+         const currentQtyNumber = parseFloat(currentQty);
+         const totalQty = currentQtyNumber + increment;
+         if(totalQty > 0){
+            document.getElementById(id).value = totalQty;
+         }
+         return totalQty;
+      }
+
+      function getTotalAmount(id, totalQty, price){
+         const currentAmount = document.getElementById(id).innerText;
+         const currentAmountNumber = parseFloat(currentAmount);
+         const totalAmount = price * totalQty;
+         if(totalAmount >= price){
+            document.getElementById(id).innerText = totalAmount;
+         }
+         return totalAmount;
+      }
+
+      // function getSubtotalAmount(id, price){
+      //    const currentSubtotal = document.getElementById(id).innerText;
+      //    const currentSubtotalNumber = parseFloat(currentSubtotal);
+      //    const totalSubtotalAmount = (currentSubtotalNumber - price);
+      //    if(totalSubtotalAmount >= 1278){
+      //       document.getElementById(id).innerText = totalSubtotalAmount;
+      //    }
+      //    return totalSubtotalAmount;
+      // }
+
+      // function removeFromCart(id, qtyAmount, currentAmount, currentSubtotal, totalSubtotalAmount, totalAmount, price){
+      //       const cartItem = document.getElementById(id);
+      //       document.getElementById("qtyAmount").value = 1;
+      //       document.getElementById("currentAmount").innerText = price;
+      //       document.getElementById("currentSubtotal").innerText = totalSubtotalAmount - totalAmount;
+      //       cartItem.style.display = "none";
+      // }
+      
+   </script>
+</body>
+
+</html>
